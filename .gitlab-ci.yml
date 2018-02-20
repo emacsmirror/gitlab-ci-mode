@@ -4,7 +4,7 @@ variables:
   APT: apt-get $APT_FLAGS
   APT_FLAGS: -q -y --no-install-recommends
   DEBIAN_FRONTEND: noninteractive
-  PATH: "~/.cask/bin:$PATH"
+  CASK: ~/.cask/bin/cask
 
 test:
   stage: test
