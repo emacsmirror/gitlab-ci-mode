@@ -22,10 +22,10 @@ test: $(TESTS)
 
 %.elc: %.el
 	$(EMACS) -eval "(checkdoc-file \"$*.el\")"
-	$(EMACS) -l test-init.el -f package-lint-batch-and-exit $*.el
+	$(EMACS) -l tests/init.el -f package-lint-batch-and-exit $*.el
 	$(EMACS) -L . -f batch-byte-compile $<
 
-%.test.stamp: %-test.el %.elc
-	$(EMACS) -L . -l $*-test.el -f ert-run-tests-batch-and-exit
+%.test.stamp: tests/%-test.el %.elc
+	$(EMACS) -L . -l tests/$*-test.el -f ert-run-tests-batch-and-exit
 
 .PHONY: all clean test

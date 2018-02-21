@@ -19,8 +19,11 @@
 ;;; Code:
 
 (require 'cask "~/.cask/cask.el")
-(cask-initialize (file-name-directory load-file-name))
+(cask-initialize
+ (file-name-directory
+  (directory-file-name
+   (file-name-directory load-file-name))))
 
 (require 'package-lint)
 
-;;; test-init.el ends here
+;;; init.el ends here
