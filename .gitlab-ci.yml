@@ -1,15 +1,9 @@
-image: "debian:9"
+image: "joewreschnig/alpine-emacs-cask:edge"
 
 variables:
-  APT: apt-get $APT_FLAGS
-  APT_FLAGS: -q -y --no-install-recommends
   CASK: ~/.cask/bin/cask
-  DEBIAN_FRONTEND: noninteractive
 
 test:
   stage: test
   script:
-    - $APT update
-    - $APT install build-essential ca-certificates curl emacs25 git python
-    - curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
     - make
