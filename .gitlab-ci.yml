@@ -1,7 +1,4 @@
-image: "joewreschnig/alpine-emacs-cask:edge"
-
-variables:
-  CASK: ~/.cask/bin/cask
+image: "registry.gitlab.com/joewreschnig/emacs-cask-docker-image:alpine-edge"
 
 test:
   stage: test
