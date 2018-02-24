@@ -258,7 +258,7 @@ If nil, use URL ‘https://gitlab.com’.")
           (auto-fill-mode)
           (dolist (error errors)
             (princ error) (princ "\n")))
-      (message "No error(s) found"))))
+      (message "No errors found"))))
 
 (defun gitlab-ci-lint ()
   "Lint the current buffer using the GitLab API.
