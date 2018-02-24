@@ -148,11 +148,6 @@ https://about.gitlab.com/features/gitlab-ci-cd/."
     "CI_BUILD_TRIGGERED")
   "Deprecated environment variables defined by GitLab CI.")
 
-;; TODO: Run through linter. First, this requires writing a linter, or
-;; rather an interface to the GitLab “linter”.  Also, there are some
-;; security concerns - it should be possible to configure a per-buffer
-;; lint URL so you don’t have to send private code to public GitLab.
-
 ;; TODO: Parse file to extract stages for highlighting?
 
 (defface gitlab-ci-builtin-variable
