@@ -180,41 +180,29 @@ the end of a keyword used as a key."
            (not (eql (char-after) ?:)))
       (insert ":")))))
 
-(defun gitlab-ci--attempt-completion (expect match candidates)
+(defun gitlab-ci--attempt-completion (prefix match candidates)
   "Attempt to offer completions at the point.
 
-When looking backwards at EXPECT, scan forward from the start of
-the EXPECT match, capturing MATCH.  Present any elements of
-CANDIDATES with that match string as a prefix.
-
-If successful, returns the bounds and matched candidates."
+When looking backwards at PREFIX followed MATCH, return the
+bounds of that MATCH (which may move past the point) and the
+CANDIDATES list."
   (save-mark-and-excursion
-   (when (looking-back expect (line-beginning-position))
+   (when (looking-back (concat prefix match) (line-beginning-position))
      (goto-char (match-beginning 0))
      (re-search-forward match)
-     (let* ((start (match-beginning 0))
-            (end (match-end 0))
-            (prefix (match-string-no-properties 0))
-            (matching))
-       (dolist (var (reverse candidates))
-         (when (string-prefix-p prefix var)
-           (push var matching)))
-       (and matching
-            (list start end matching))))))
+     (list (match-beginning 0) (match-end 0) candidates))))
 
 (defun gitlab-ci--completion-for-keyword ()
   "Attempt to offer completions for a keyword at the point.
 
 If successful, returns the bounds and matching keywords."
-  (gitlab-ci--attempt-completion
-   "^ *[a-z_]+" "[a-z_]+" gitlab-ci-keywords))
+  (gitlab-ci--attempt-completion "^ *" "[a-z_]+" gitlab-ci-keywords))
 
 (defun gitlab-ci--completion-for-variable ()
   "Attempt to offer completions for a variable at the point.
 
 If successful, returns the bounds and matching variables."
-  (gitlab-ci--attempt-completion
-   "\\${?[A-Za-z0-9_]+" "[A-Za-z0-9_]+" gitlab-ci-variables))
+  (gitlab-ci--attempt-completion "\\${?" "[A-Z_]+" gitlab-ci-variables))
 
 (defun gitlab-ci--completion-candidates ()
   "Return candidates for completion at the point."
