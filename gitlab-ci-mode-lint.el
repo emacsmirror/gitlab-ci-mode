@@ -18,20 +18,17 @@
 (require 'json)
 (require 'url)
 
-(defgroup gitlab-ci nil
-  "Support for editing GitLab CI configuration files.
-
-For more information about GitLab CI, see URL
-‘https://about.gitlab.com/features/gitlab-ci-cd/’."
-  :group 'convenience)
-
 (defcustom gitlab-ci-url nil
   "URL to use for GitLab CI API files.
 
-If nil, use URL ‘https://gitlab.com’.")
+If nil, use URL ‘https://gitlab.com’."
+  :group 'gitlab-ci
+  :tag "GitLab CI URL")
 
 (defcustom gitlab-ci-api-token nil
-  "Private token to use for linting GitLab CI files.")
+  "Private token to use for linting GitLab CI files."
+  :group 'gitlab-ci
+  :tag "GitLab CI API Token")
 
 (defun gitlab-ci--lint-to-buffer (status data)
   "Show linting errors in a temporary buffer.

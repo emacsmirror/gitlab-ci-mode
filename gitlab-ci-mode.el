@@ -27,11 +27,12 @@
 ;; ‘gitlab-ci-mode’ is a major mode for editing GitLab CI files.  It
 ;; provides syntax highlighting and completion for keywords and special
 ;; variables.  An interface to GitLab’s CI file linter is also provided
-;; via ‘gitlab-ci-lint’.
+;; via ‘gitlab-ci-lint’, and also as a Flycheck checker with
+;; ‘gitlab-ci-mode-flycheck-enable’.
 ;;
 ;; For more information about GitLab CI, see URL
-;; ‘https://about.gitlab.com/features/gitlab-ci-cd/’.  For more details
-;; about the file format, see URL
+;; ‘https://docs.gitlab.com/ce/ci/README.html’.  For details about the
+;; file format, see URL
 ;; ‘https://docs.gitlab.com/ce/ci/yaml/README.html’.
 
 
@@ -149,14 +150,24 @@ for more information about these variables.")
 
 ;; TODO: Parse file to extract stages for highlighting?
 
+(defgroup gitlab-ci nil
+  "Support for editing GitLab CI configuration files.
+
+For more information about GitLab CI, see URL
+‘https://docs.gitlab.com/ce/ci/README.html’."
+  :tag "GitLab CI"
+  :group 'convenience)
+
 (defface gitlab-ci-builtin-variable
   '((t (:inherit font-lock-builtin-face)))
   "Face for built-in GitLab CI variables (e.g. “$CI_COMMIT_TAG”)."
+  :tag "GitLab CI Built-in Variable"
   :group 'gitlab-ci)
 
 (defface gitlab-ci-custom-variable
   '((t (:inherit font-lock-variable-name-face)))
   "Face for custom GitLab CI variables."
+  :tag "GitLab CI Custom Variable"
   :group 'gitlab-ci)
 
 (defun gitlab-ci--post-completion (_string status)
@@ -226,7 +237,8 @@ information about GitLab CI, see URL
 This mode is capable of linting files but does not do so
 automatically out of security concerns. Use ‘gitlab-ci-lint’ to
 lint interactively on-demand, or ‘gitlab-ci-request-lint’ to
-integrate the linting process with other software.
+integrate the linting process with other software.  To use
+Flycheck with this mode, see ‘gitlab-ci-mode-flycheck-enable’.
 
 This mode derives from ‘yaml-mode’, but does not truly parse
 YAML.  Only idiomatic GitLab CI syntax will be handled correctly.
