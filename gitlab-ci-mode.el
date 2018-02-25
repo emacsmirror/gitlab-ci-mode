@@ -216,7 +216,7 @@ If successful, returns the bounds and matching variables."
   "`completion-at-point-functions' function for GitLab CI files."
   (when-let (completion (gitlab-ci--completion-candidates))
     (append completion
-            '(:exclusive yes
+            '(:exclusive no
               :company-docsig identity
               :exit-function gitlab-ci--post-completion))))
 
