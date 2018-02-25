@@ -204,7 +204,7 @@ If successful, returns the bounds and matching variables."
       (gitlab-ci--completion-for-keyword)))
 
 (defun gitlab-ci-complete-at-point ()
-  "`completion-at-point-functions' function for GitLab CI files."
+  "‘completion-at-point-functions’ function for GitLab CI files."
   (when-let (completion (gitlab-ci--completion-candidates))
     (append completion
             '(:exclusive no
