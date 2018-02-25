@@ -37,17 +37,8 @@
 
 ;;; Code:
 
-(require 'json)
 (require 'subr-x)
-(require 'url)
 (require 'yaml-mode)
-
-(defgroup gitlab-ci nil
-  "Support for editing GitLab CI configuration files.
-
-For more information about GitLab CI, see URL
-https://about.gitlab.com/features/gitlab-ci-cd/."
-  :group 'convenience)
 
 (defconst gitlab-ci-keywords
   '("action"
@@ -259,58 +250,7 @@ In particular, it does not expect to encounter tags."
 ;;;###autoload
 (add-to-list 'auto-mode-alist '(".gitlab-ci.yml\\'" . gitlab-ci-mode))
 
-
-;; Linting support
-
-(defcustom gitlab-ci-url nil
-  "URL to use for GitLab CI API files.
-
-If nil, use URL ‘https://gitlab.com’.")
-
-(defcustom gitlab-ci-api-token nil
-  "Private token to use for linting GitLab CI files.")
-
-(defun gitlab-ci--process-lint-results (_)
-  "Translate lint API result into buffer data."
-  (goto-char (point-min))
-  (search-forward "\n\n")
-  ;; TODO: Nicer error messages.
-  (let* ((json-array-type 'list)
-         (result (json-read))
-         (errors (alist-get 'errors result)))
-    (if errors
-        (with-output-to-temp-buffer "*GitLab CI Lint*"
-          (auto-fill-mode)
-          (dolist (error errors)
-            (princ error) (princ "\n")))
-      (message "No errors found"))))
-
-(defun gitlab-ci-lint ()
-  "Lint the current buffer using the GitLab API.
-
-Running this command will upload your file the GitLab site
-specified in ‘gitlab-ci-url’, which see.  If your file contains
-sensitive data, this is not recommended.  (Storing sensitive data
-in your CI configuration file is also not recommended.)
-
-If your GitLab API requires a private token, set
-‘gitlab-ci-api-token’."
-  (interactive)
-  (let* ((url-request-method "POST")
-         (url-request-data
-          (let ((h (make-hash-table)))
-            (puthash "content" (substring-no-properties (buffer-string)) h)
-            (json-encode h)))
-         (url-request-extra-headers
-          '(("Content-Type" . "application/json"))))
-
-    (when gitlab-ci-api-token
-      (add-to-list 'url-request-extra-headers
-                   `("Private-Token" . ,gitlab-ci-api-token)))
-    (url-retrieve (concat (or gitlab-ci-url "https://gitlab.com")
-                          "/api/v4/ci/lint")
-                  #'gitlab-ci--process-lint-results)))
-
+(require 'gitlab-ci-mode-lint)
 
 (provide 'gitlab-ci-mode)
 ;;; gitlab-ci-mode.el ends here

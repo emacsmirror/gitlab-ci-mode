@@ -3,14 +3,15 @@
 CASK ?= cask
 EMACS ?= $(CASK) emacs -Q --batch
 
-SRC := gitlab-ci-mode.el
+SRC := gitlab-ci-mode.el gitlab-ci-mode-flycheck.el gitlab-ci-mode-lint.el
 OBJ := $(SRC:.el=.elc)
-TESTS := $(SRC:.el=.test.stamp)
+TESTS := gitlab-ci-mode.test.stamp
 
 .INTERMEDIATE: $(TESTS)
 
 all:
 	$(CASK) install
+	$(EMACS) -l tests/init.el -f package-lint-batch-and-exit gitlab-ci-mode.el
 	$(MAKE) $(OBJ) $(TESTS)
 
 clean:
@@ -22,7 +23,6 @@ test: $(TESTS)
 
 %.elc: %.el
 	$(EMACS) -eval "(checkdoc-file \"$*.el\")"
-	$(EMACS) -l tests/init.el -f package-lint-batch-and-exit $*.el
 	$(EMACS) -L . -f batch-byte-compile $<
 
 %.test.stamp: tests/%-test.el %.elc
