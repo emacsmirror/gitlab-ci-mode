@@ -30,7 +30,9 @@
 ;; via ‘gitlab-ci-lint’.
 ;;
 ;; For more information about GitLab CI, see URL
-;; https://about.gitlab.com/features/gitlab-ci-cd/
+;; ‘https://about.gitlab.com/features/gitlab-ci-cd/’.  For more details
+;; about the file format, see URL
+;; ‘https://docs.gitlab.com/ce/ci/yaml/README.html’.
 
 
 ;;; Code:
@@ -132,7 +134,10 @@ https://about.gitlab.com/features/gitlab-ci-cd/."
     "GITLAB_USER_LOGIN"
     "GITLAB_USER_NAME"
     "RESTORE_CACHE_ATTEMPTS")
-  "Environment variables defined by GitLab CI.")
+  "Environment variables defined by GitLab CI.
+
+See URL ‘https://docs.gitlab.com/ce/ci/variables/’ for more
+information about these variables.")
 
 (defconst gitlab-ci-deprecated
   '("CI_BUILD_ID"
@@ -146,7 +151,10 @@ https://about.gitlab.com/features/gitlab-ci-cd/."
     "CI_BUILD_TAG"
     "CI_BUILD_TOKEN"
     "CI_BUILD_TRIGGERED")
-  "Deprecated environment variables defined by GitLab CI.")
+  "Deprecated environment variables defined by GitLab CI.
+
+See URL ‘https://docs.gitlab.com/ce/ci/variables/#9-0-renaming’
+for more information about these variables.")
 
 ;; TODO: Parse file to extract stages for highlighting?
 
@@ -214,7 +222,24 @@ If successful, returns the bounds and matching variables."
 
 ;;;###autoload
 (define-derived-mode gitlab-ci-mode yaml-mode "GitLab CI"
-  "Major mode for editing GitLab CI (“.gitlab-ci.yml”) files."
+  "Major mode for editing GitLab CI (‘.gitlab-ci.yml’) files.
+
+GitLab CI uses a YAML-based file format to configure the jobs it
+will run in order to build, test, and deploy software.  For more
+information about the GitLab CI file format, see URL
+‘https://docs.gitlab.com/ce/ci/yaml/README.html’.  For general
+information about GitLab CI, see URL
+‘https://docs.gitlab.com/ce/ci/README.html’ and URL
+‘https://about.gitlab.com/features/gitlab-ci-cd/’.
+
+This mode is capable of linting files but does not do so
+automatically out of security concerns. Use ‘gitlab-ci-lint’ to
+lint interactively on-demand, or ‘gitlab-ci-request-lint’ to
+integrate the linting process with other software.
+
+This mode derives from ‘yaml-mode’, but does not truly parse
+YAML.  Only idiomatic GitLab CI syntax will be handled correctly.
+In particular, it does not expect to encounter tags."
   :group 'gitlab-ci
   (font-lock-add-keywords
    nil
