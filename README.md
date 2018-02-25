@@ -7,9 +7,9 @@
 It provides syntax highlighting and completion for keywords and special
 variables.
 
-An interface to the [GitLab CI file linter][] is also provided via
+An interface to the [GitLab CI linter][] is also provided via
 `gitlab-ci-lint`, and also as a [Flycheck][] checker with
-``gitlab-ci-mode-flycheck-enable`.
+`gitlab-ci-mode-flycheck-enable`.
 
 [Flycheck]: http://www.flycheck.org/en/latest/
 [GitLab CI files]: https://docs.gitlab.com/ce/ci/yaml/README.html
