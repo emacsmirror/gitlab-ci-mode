@@ -24,12 +24,21 @@
 
 If nil, use URL ‘https://gitlab.com’."
   :group 'gitlab-ci
-  :tag "GitLab CI URL")
+  :risky t ;; The risk of a local URL is not that someone steals your
+           ;; buffer contents (they already had it, since they gave you
+           ;; the file with the URL), but that someone steals your
+           ;; default API token, which is probably for a public site.
+  :tag "GitLab CI URL"
+  :type 'string)
 
 (defcustom gitlab-ci-api-token nil
   "Private token to use for linting GitLab CI files."
   :group 'gitlab-ci
-  :tag "GitLab CI API Token")
+  :risky t ;; There is no reason to let a file set this, since a) no
+           ;; file should know your URL (see above), and b) CI files
+           ;; shouldn’t contain secrets anyway.
+  :tag "GitLab CI API Token"
+  :type 'string)
 
 (defun gitlab-ci--lint-to-buffer (status data)
   "Show linting errors in a temporary buffer.
