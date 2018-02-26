@@ -16,6 +16,7 @@
 ;;; Code:
 
 (require 'json)
+(require 'subr-x)
 (require 'url)
 
 (defcustom gitlab-ci-url nil
@@ -44,19 +45,20 @@ STATUS and DATA are passed from ‘gitlab-ci-request-lint’, which see."
         (message "No errors found")))))
 
 (defvar url-http-end-of-headers)        ; defined in ‘url/url-http.el’
-(defun gitlab-ci--lint-results (_ callback buffer)
+(defun gitlab-ci--lint-results (status callback buffer)
   "Translate lint API result into data and pass it on.
 
-CALLBACK and BUFFER are passed from ‘gitlab-ci-request-lint’,
-which see."
-  ;; TODO: Handle HTTP errors.
+STATUS is passed from ‘url-retrieve’, and CALLBACK and BUFFER are
+passed from ‘gitlab-ci-request-lint’, which see."
   (when (buffer-live-p buffer) ; Don’t bother if the source is dead.
-    (goto-char url-http-end-of-headers)
     (condition-case err
-        (let ((json-array-type 'list)
-              (result (json-read)))
-          (with-current-buffer buffer
-            (funcall callback 'finished result)))
+        (if-let (err (plist-get status :error))
+            (signal (car err) (cdr err))
+          (goto-char url-http-end-of-headers)
+          (let ((json-array-type 'list)
+                (result (json-read)))
+            (with-current-buffer buffer
+              (funcall callback 'finished result))))
       (error (funcall callback 'errored (error-message-string err))))))
 
 (defun gitlab-ci-request-lint (callback &optional silent)
