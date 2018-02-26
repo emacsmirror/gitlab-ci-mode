@@ -64,8 +64,8 @@ passed from ‘gitlab-ci-request-lint’, which see."
         (if-let (err (plist-get status :error))
             (signal (car err) (cdr err))
           (goto-char url-http-end-of-headers)
-          (let ((json-array-type 'list)
-                (result (json-read)))
+          (let* ((json-array-type 'list)
+                 (result (json-read)))
             (with-current-buffer buffer
               (funcall callback 'finished result))))
       (error (funcall callback 'errored (error-message-string err))))))
