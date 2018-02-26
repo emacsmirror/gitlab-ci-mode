@@ -46,12 +46,11 @@ If nil, use URL ‘https://gitlab.com’."
 STATUS and DATA are passed from ‘gitlab-ci-request-lint’, which see."
   (if (eq status 'errored)
       (error data)
-    (let ((errors (alist-get 'errors data)))
-      (if errors
-          (with-output-to-temp-buffer "*GitLab CI Lint*"
-            (dolist (error errors)
-              (princ error) (princ "\n")))
-        (message "No errors found")))))
+    (if-let (errors (alist-get 'errors data))
+        (with-output-to-temp-buffer "*GitLab CI Lint*"
+          (dolist (error errors)
+            (princ error) (princ "\n")))
+      (message "No errors found"))))
 
 (defvar url-http-end-of-headers)        ; defined in ‘url/url-http.el’
 (defun gitlab-ci--lint-results (status callback buffer)
