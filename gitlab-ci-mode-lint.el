@@ -1,6 +1,6 @@
 ;;; gitlab-ci-mode-lint.el --- Linting for ‘gitlab-ci-mode’ -*- lexical-binding: t; -*-
 ;;
-;; Copyright (C) 2018  Joe Wreschnig
+;; Copyright 2018 Joe Wreschnig
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -19,10 +19,8 @@
 (require 'subr-x)
 (require 'url)
 
-(defcustom gitlab-ci-url nil
-  "URL to use for GitLab CI API files.
-
-If nil, use URL ‘https://gitlab.com’."
+(defcustom gitlab-ci-url "https://gitlab.com"
+  "GitLab URL to use for linting GitLab CI API files."
   :group 'gitlab-ci
   :risky t ;; The risk of a local URL is not that someone steals your
            ;; buffer contents (they already had it, since they gave you
@@ -32,7 +30,7 @@ If nil, use URL ‘https://gitlab.com’."
   :type 'string)
 
 (defcustom gitlab-ci-api-token nil
-  "Private token to use for linting GitLab CI files."
+  "Private token to use for the GitLab API when linting CI files."
   :group 'gitlab-ci
   :risky t ;; There is no reason to let a file set this, since a) no
            ;; file should know your URL (see above), and b) CI files
@@ -87,8 +85,7 @@ error message.  SILENT is as to ‘url-retrieve’."
             (json-encode h)))
          (url-request-extra-headers
           '(("Content-Type" . "application/json")))
-         (url (concat (or gitlab-ci-url "https://gitlab.com")
-                      "/api/v4/ci/lint")))
+         (url (concat gitlab-ci-url "/api/v4/ci/lint")))
 
     (when gitlab-ci-api-token
       (add-to-list 'url-request-extra-headers
@@ -105,9 +102,9 @@ error message.  SILENT is as to ‘url-retrieve’."
   "Lint the current buffer using the GitLab API.
 
 Running this command will upload your buffer to the site
-specified in ‘gitlab-ci-url’, which see.  If your buffer contains
-sensitive data, this is not recommended.  (Storing sensitive data
-in your CI configuration file is also not recommended.)
+specified in ‘gitlab-ci-url’.  If your buffer contains sensitive
+data, this is not recommended.  (Storing sensitive data in your
+CI configuration file is also not recommended.)
 
 If your GitLab API requires a private token, set
 ‘gitlab-ci-api-token’."

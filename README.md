@@ -15,6 +15,7 @@ An interface to the [GitLab CI linter][] is also provided via
 [GitLab CI files]: https://docs.gitlab.com/ce/ci/yaml/README.html
 [GitLab CI linter]: https://docs.gitlab.com/ce/api/lint.html
 
+
 ## License
 
 This program is free software; you can redistribute it and/or modify it

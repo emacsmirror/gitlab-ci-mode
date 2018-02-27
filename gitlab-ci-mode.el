@@ -1,12 +1,12 @@
 ;;; gitlab-ci-mode.el --- mode for editing GitLab CI files  -*- lexical-binding: t; -*-
 ;;
-;; Copyright (C) 2018  Joe Wreschnig
+;; Copyright 2018 Joe Wreschnig
 ;;
 ;; Author: Joe Wreschnig
-;; URL: https://git.korewanetadesu.com/gitlab-ci-mode.git
-;; Version: 0
-;; Keywords: convenience
+;; Keywords: tools, vc
 ;; Package-Requires: ((emacs "25") (yaml-mode "0.0.12"))
+;; Package-Version: 0
+;; URL: https://git.korewanetadesu.com/gitlab-ci-mode.git
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -240,7 +240,7 @@ lint interactively on-demand, or ‘gitlab-ci-request-lint’ to
 integrate the linting process with other software.  To use
 Flycheck with this mode, see ‘gitlab-ci-mode-flycheck-enable’.
 
-This mode derives from ‘yaml-mode’, but does not truly parse
+Although this derives from ‘yaml-mode’, it does not truly parse
 YAML.  Only idiomatic GitLab CI syntax will be handled correctly.
 In particular, it does not expect to encounter tags."
   :group 'gitlab-ci

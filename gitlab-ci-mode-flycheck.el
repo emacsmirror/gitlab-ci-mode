@@ -1,6 +1,6 @@
 ;;; gitlab-ci-mode-flycheck.el --- Flycheck support for ‘gitlab-ci-mode’ -*- lexical-binding: t; -*-
 ;;
-;; Copyright (C) 2018  Joe Wreschnig
+;; Copyright 2018 Joe Wreschnig
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -55,9 +55,9 @@ offers no local linting tool. The service URL is configurable via
   "Enable Flycheck support for ‘gitlab-ci-mode’.
 
 Enabling this checker will upload your buffer to the site
-specified in ‘gitlab-ci-url’, which see.  If your buffer contains
-sensitive data, this is not recommended.  (Storing sensitive data
-in your CI configuration file is also not recommended.)
+specified in ‘gitlab-ci-url’.  If your buffer contains sensitive
+data, this is not recommended.  (Storing sensitive data in your
+CI configuration file is also not recommended.)
 
 If your GitLab API requires a private token, set
 ‘gitlab-ci-api-token’."
