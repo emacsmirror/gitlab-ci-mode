@@ -185,7 +185,7 @@ the end of a keyword used as a key."
            (not (eql (char-after) ?:)))
       (insert ":")))))
 
-(defun gitlab-ci--attempt-completion (prefix match candidates)
+(defun gitlab-ci--try-completion (prefix match candidates)
   "Attempt to offer completions at the point.
 
 When looking backwards at PREFIX followed MATCH, return the
@@ -197,29 +197,16 @@ CANDIDATES list."
      (re-search-forward match)
      (list (match-beginning 0) (match-end 0) candidates))))
 
-(defun gitlab-ci--completion-for-keyword ()
-  "Attempt to offer completions for a keyword at the point.
-
-If successful, returns the bounds and matching keywords."
-  (gitlab-ci--attempt-completion "^ *" "[a-z_]+" gitlab-ci-keywords))
-
-(defun gitlab-ci--completion-for-variable ()
-  "Attempt to offer completions for a variable at the point.
-
-If successful, returns the bounds and matching variables."
-  (gitlab-ci--attempt-completion "\\${?" "[A-Z_]+" gitlab-ci-variables))
-
 (defun gitlab-ci--completion-candidates ()
   "Return candidates for completion at the point."
-  (or (gitlab-ci--completion-for-variable)
-      (gitlab-ci--completion-for-keyword)))
+  (or (gitlab-ci--try-completion "^ *" "[a-z_]+" gitlab-ci-keywords)
+      (gitlab-ci--try-completion "\\${?" "[A-Z_]+" gitlab-ci-variables)))
 
 (defun gitlab-ci-complete-at-point ()
   "‘completion-at-point-functions’ function for GitLab CI files."
   (when-let (completion (gitlab-ci--completion-candidates))
     (append completion
             '(:exclusive no
-              :company-docsig identity
               :exit-function gitlab-ci--post-completion))))
 
 ;;;###autoload
