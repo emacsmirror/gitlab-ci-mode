@@ -131,7 +131,7 @@
 See URL ‘https://docs.gitlab.com/ce/ci/variables/’ for more
 information about these variables.")
 
-(defconst gitlab-ci-deprecated
+(defconst gitlab-ci-deprecated-variables
   '("CI_BUILD_ID"
     "CI_BUILD_MANUAL"
     "CI_BUILD_NAME"
@@ -248,7 +248,8 @@ In particular, it does not expect to encounter tags."
    nil
    `((,(format "^ *\\(%s\\) *:" (regexp-opt gitlab-ci-keywords))
       (1 'font-lock-keyword-face))
-     (,(format "\\<\\${?\\(%s\\)\\>" (regexp-opt gitlab-ci-deprecated))
+     (,(format "\\<\\${?\\(%s\\)\\>"
+               (regexp-opt gitlab-ci-deprecated-variables))
       (1 'warning))
      (,(format "\\<\\${?\\(%s\\)\\>[^A-Za-z0-9_]"
                (regexp-opt gitlab-ci-variables))
