@@ -6,7 +6,7 @@
 ;; Keywords: tools, vc
 ;; Package-Requires: ((emacs "25") (yaml-mode "0.0.12"))
 ;; Package-Version: 0
-;; URL: https://git.korewanetadesu.com/gitlab-ci-mode.git
+;; URL: https://gitlab.com/joewreschnig/gitlab-ci-mode/
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
