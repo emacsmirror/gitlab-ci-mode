@@ -226,8 +226,7 @@ information about GitLab CI, see URL
 This mode is capable of linting files but does not do so
 automatically out of security concerns. Use ‘gitlab-ci-lint’ to
 lint interactively on-demand, or ‘gitlab-ci-request-lint’ to
-integrate the linting process with other software.  To use
-Flycheck with this mode, see ‘gitlab-ci-mode-flycheck-enable’.
+integrate the linting process with other software.
 
 Although this derives from ‘yaml-mode’, it does not truly parse
 YAML.  Only idiomatic GitLab CI syntax will be handled correctly.
