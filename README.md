@@ -9,7 +9,7 @@ variables.
 
 An interface to the [GitLab CI linter][] is also provided via
 `gitlab-ci-lint`. For [Flycheck][] integration, see
-`[gitlab-ci-mode-flycheck][]`.
+[`gitlab-ci-mode-flycheck`][gitlab-ci-mode-flycheck].
 
 [Flycheck]: http://www.flycheck.org/
 [GitLab CI files]: https://docs.gitlab.com/ce/ci/yaml/README.html
