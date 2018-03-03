@@ -5,5 +5,4 @@
 (depends-on "yaml-mode" "0.0.12")
 
 (development
- (depends-on "package-lint")
- (depends-on "flycheck"))
+ (depends-on "package-lint"))
