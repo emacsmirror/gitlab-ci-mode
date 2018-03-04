@@ -11,7 +11,7 @@ TESTS := $(SRC:.el=.test.stamp)
 
 all: $(OBJ) $(TESTS)
 
-.cask/stamp: Cask
+.cask/stamp: Cask $(SRC)
 	$(CASK) install
 	touch $@
 
