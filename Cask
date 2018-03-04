@@ -1,4 +1,4 @@
-(source melpa)
+(source melpa-stable)
 
 (package-file "gitlab-ci-mode.el")
 
