@@ -295,7 +295,9 @@ passed from ‘gitlab-ci-request-lint’, which see."
             (signal (car err) (cdr err))
           (goto-char url-http-end-of-headers)
           (let* ((json-array-type 'list)
-                 (result (json-read)))
+                 (data (buffer-substring-no-properties (point) (point-max)))
+                 (result (json-read-from-string
+                          (decode-coding-string data 'utf-8))))
             (with-current-buffer buffer
               (funcall callback 'finished result))))
       (error (funcall callback 'errored (error-message-string err))))))
@@ -315,7 +317,7 @@ error message.  SILENT is as to ‘url-retrieve’."
          (url-request-data
           (let ((h (make-hash-table)))
             (puthash "content" (substring-no-properties (buffer-string)) h)
-            (json-encode h)))
+            (encode-coding-string (json-encode h) 'utf-8)))
          (url-request-extra-headers
           '(("Content-Type" . "application/json")))
          (url (concat gitlab-ci-url "/api/v4/ci/lint")))
