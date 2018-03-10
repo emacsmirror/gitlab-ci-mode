@@ -1,6 +1,6 @@
 # gitlab-ci-mode
 
-[![pipeline status](https://gitlab.com/joewreschnig/gitlab-ci-mode/badges/master/pipeline.svg)](https://gitlab.com/joewreschnig/gitlab-ci-mode/commits/master)
+[![pipeline status](https://gitlab.com/joewreschnig/gitlab-ci-mode/badges/master/pipeline.svg)](https://gitlab.com/joewreschnig/gitlab-ci-mode/commits/master) [![MELPA Stable](http://stable.melpa.org/packages/gitlab-ci-mode-badge.svg)](http://stable.melpa.org/#/gitlab-ci-mode) [![MELPA](http://melpa.org/packages/gitlab-ci-mode-badge.svg)](http://melpa.org/#/gitlab-ci-mode)
 
 
 `gitlab-ci-mode` is an Emacs major mode for editing [GitLab CI files][].
