@@ -249,7 +249,7 @@ In particular, it does not expect to encounter tags."
               '(gitlab-ci-complete-at-point)))
 
 ;;;###autoload
-(add-to-list 'auto-mode-alist '(".gitlab-ci.yml\\'" . gitlab-ci-mode))
+(add-to-list 'auto-mode-alist '("\\.gitlab-ci.yml\\'" . gitlab-ci-mode))
 
 
 ;; Linting support
