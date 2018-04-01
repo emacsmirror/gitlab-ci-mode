@@ -206,10 +206,11 @@ CANDIDATES list."
 
 (defun gitlab-ci-complete-at-point ()
   "‘completion-at-point-functions’ function for GitLab CI files."
-  (when-let (completion (gitlab-ci--completion-candidates))
-    (append completion
-            '(:exclusive no
-              :exit-function gitlab-ci--post-completion))))
+  (let ((completion (gitlab-ci--completion-candidates)))
+    (when completion
+      (append completion
+              '(:exclusive no
+                :exit-function gitlab-ci--post-completion)))))
 
 ;;;###autoload
 (define-derived-mode gitlab-ci-mode yaml-mode "GitLab CI"
@@ -277,11 +278,12 @@ In particular, it does not expect to encounter tags."
 STATUS and DATA are passed from ‘gitlab-ci-request-lint’, which see."
   (if (eq status 'errored)
       (error data)
-    (if-let (errors (alist-get 'errors data))
-        (with-output-to-temp-buffer "*GitLab CI Lint*"
-          (dolist (error errors)
-            (princ error) (princ "\n")))
-      (message "No errors found"))))
+    (let ((errors (alist-get 'errors data)))
+      (if errors
+          (with-output-to-temp-buffer "*GitLab CI Lint*"
+            (dolist (error errors)
+              (princ error) (princ "\n")))
+        (message "No errors found")))))
 
 (defvar url-http-end-of-headers)        ; defined in ‘url/url-http.el’
 (defun gitlab-ci--lint-results (status callback buffer)
@@ -291,8 +293,9 @@ STATUS is passed from ‘url-retrieve’, and CALLBACK and BUFFER are
 passed from ‘gitlab-ci-request-lint’, which see."
   (when (buffer-live-p buffer) ; Don’t bother if the source is dead.
     (condition-case err
-        (if-let (err (plist-get status :error))
-            (signal (car err) (cdr err))
+        (let ((err (plist-get status :error)))
+          (when err
+            (signal (car err) (cdr err)))
           (goto-char url-http-end-of-headers)
           (let* ((json-array-type 'list)
                  (data (buffer-substring-no-properties (point) (point-max)))
