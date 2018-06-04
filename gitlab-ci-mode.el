@@ -5,7 +5,7 @@
 ;; Author: Joe Wreschnig
 ;; Keywords: tools, vc
 ;; Package-Requires: ((emacs "25") (yaml-mode "0.0.12"))
-;; Package-Version: 20180306.1
+;; Package-Version: 20180605.1
 ;; URL: https://gitlab.com/joewreschnig/gitlab-ci-mode/
 ;;
 ;; This program is free software; you can redistribute it and/or modify
