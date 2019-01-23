@@ -100,6 +100,28 @@ set in a ‘variables’ block and act more like keywords.")
    gitlab-ci-configuration-variables)
   "YAML keys with special meaning used in GitLab CI files.")
 
+(defconst gitlab-ci-special-values
+  '("always"
+    "api"
+    "branches"
+    "changes"
+    "delayed"
+    "external"
+    "kubernetes"
+    "manual"
+    "merge_requests"
+    "on_failure"
+    "on_success"
+    "pipelines"
+    "pushes"
+    "refs"
+    "schedules"
+    "tags"
+    "triggers"
+    "variables"
+    "web")
+  "YAML values with special meaning used in GitLab CI files.")
+
 (defconst gitlab-ci-variables
   (append
    '("CI"
@@ -226,6 +248,12 @@ For more information about GitLab CI, see URL
   :tag "GitLab CI Custom Variable"
   :group 'gitlab-ci)
 
+(defface gitlab-ci-special-value
+  '((t (:inherit font-lock-constant-face)))
+  "Face for special GitLab CI values (e.g. “branches”)."
+  :tag "GitLab CI Special value"
+  :group 'gitlab-ci)
+
 (defun gitlab-ci--post-completion (_string status)
   "Handle special syntax after keywords/variables.
 
@@ -256,7 +284,8 @@ CANDIDATES list."
 (defun gitlab-ci--completion-candidates ()
   "Return candidates for completion at the point."
   (or (gitlab-ci--try-completion "^ *" "[a-z_]+" gitlab-ci-keywords)
-      (gitlab-ci--try-completion "\\${?" "[A-Z_]+" gitlab-ci-variables)))
+      (gitlab-ci--try-completion "\\${?" "[A-Z_]+" gitlab-ci-variables)
+      (gitlab-ci--try-completion "[-:] *" "[a-z_]+" gitlab-ci-special-values)))
 
 (defun gitlab-ci-complete-at-point ()
   "‘completion-at-point-functions’ function for GitLab CI files."
@@ -298,7 +327,11 @@ In particular, it does not expect to encounter tags."
                (regexp-opt gitlab-ci-variables))
       (1 'gitlab-ci-builtin-variable))
      ("\\<\\${?\\([A-Za-z0-9_]+\\)\\>"
-      (1 'gitlab-ci-custom-variable))))
+      (1 'gitlab-ci-custom-variable))
+     (,(format "[-:].+\\<\\(%s\\)\\>"
+               (regexp-opt gitlab-ci-special-values))
+      (1 'gitlab-ci-special-value))
+     ))
 
   (setq-local completion-at-point-functions
               '(gitlab-ci-complete-at-point)))

@@ -65,4 +65,11 @@
     (completion-at-point)
     (should (equal (buffer-string) "variables:\n  - X: ${CI_JOB_NAME}Y"))))
 
+(ert-deftest gitlab-ci-mode-test-complete-special-value ()
+  (with-gitlab-ci-test-buffer
+      "some_job:\n  - when: pi"
+    (goto-char (point-max))
+    (completion-at-point)
+    (should (equal (buffer-string) "some_job:\n  - when: pipelines"))))
+
 ;;; gitlab-ci-mode-test.el ends here
