@@ -88,6 +88,7 @@
     "CI_COMMIT_REF_NAME"
     "CI_COMMIT_REF_SLUG"
     "CI_COMMIT_SHA"
+    "CI_COMMIT_SHORT_SHA"
     "CI_COMMIT_TAG"
     "CI_COMMIT_TITLE"
     "CI_CONFIG_PATH"
@@ -102,8 +103,21 @@
     "CI_JOB_MANUAL"
     "CI_JOB_NAME"
     "CI_JOB_STAGE"
+    "CI_API_V4_URL"
     "CI_JOB_TOKEN"
     "CI_JOB_URL"
+    "CI_MERGE_REQUEST_ID"
+    "CI_MERGE_REQUEST_IID"
+    "CI_MERGE_REQUEST_PROJECT_ID"
+    "CI_MERGE_REQUEST_PROJECT_PATH"
+    "CI_MERGE_REQUEST_PROJECT_URL"
+    "CI_MERGE_REQUEST_REF_PATH"
+    "CI_MERGE_REQUEST_SOURCE_BRANCH_NAME"
+    "CI_MERGE_REQUEST_SOURCE_PROJECT_ID"
+    "CI_MERGE_REQUEST_SOURCE_PROJECT_PATH"
+    "CI_MERGE_REQUEST_SOURCE_PROJECT_URL"
+    "CI_MERGE_REQUEST_SOURCE_PROJECT_URL"
+    "CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
     "CI_NODE_INDEX"
     "CI_NODE_TOTAL"
     "CI_PIPELINE_ID"
@@ -149,6 +163,9 @@
 
 See URL ‘https://docs.gitlab.com/ce/ci/variables/’ for more
 information about these variables.")
+
+;; TODO: Also handle the special K8S_SECRET_* variables from Auto DevOps
+;; pipelines.
 
 (defconst gitlab-ci-deprecated-variables
   '("CI_BUILD_BEFORE_SHA"
