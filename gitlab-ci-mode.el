@@ -83,6 +83,8 @@ set in a ‘variables’ block and act more like keywords.")
      "parallel"
      "paths"
      "policy"
+     "project"
+     "ref"
      "remote"
      "reports"
      "retry"
