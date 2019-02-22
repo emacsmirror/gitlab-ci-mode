@@ -103,6 +103,7 @@ set in a ‘variables’ block and act more like keywords.")
 (defconst gitlab-ci-special-values
   '("always"
     "api"
+    "api_failure"
     "branches"
     "changes"
     "delayed"
@@ -110,14 +111,20 @@ set in a ‘variables’ block and act more like keywords.")
     "kubernetes"
     "manual"
     "merge_requests"
+    "missing_dependency_failure"
     "on_failure"
     "on_success"
     "pipelines"
     "pushes"
     "refs"
+    "runner_system_failure"
+    "runner_unsupported"
     "schedules"
+    "script_failure"
+    "stuck_or_timeout_failure"
     "tags"
     "triggers"
+    "unknown_failure"
     "variables"
     "web")
   "YAML values with special meaning used in GitLab CI files.")
