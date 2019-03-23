@@ -179,6 +179,8 @@ set in a ‘variables’ block and act more like keywords.")
      "CI_MERGE_REQUEST_TITLE"
      "CI_NODE_INDEX"
      "CI_NODE_TOTAL"
+     "CI_PAGES_DOMAIN"
+     "CI_PAGES_URL"
      "CI_PIPELINE_ID"
      "CI_PIPELINE_IID"
      "CI_PIPELINE_SOURCE"
