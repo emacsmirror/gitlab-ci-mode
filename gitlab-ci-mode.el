@@ -47,6 +47,7 @@
     "ARTIFACT_DOWNLOAD_ATTEMPTS"
     "GET_SOURCES_ATTEMPTS"
     "GIT_CHECKOUT"
+    "GIT_CLONE_PATH"
     "GIT_DEPTH"
     "GIT_STRATEGY"
     "GIT_SUBMODULE_STRATEGY"
@@ -136,8 +137,11 @@ set in a ‘variables’ block and act more like keywords.")
 (defconst gitlab-ci-variables
   (append
    '("CI"
+     "CI_BUILDS_DIR"
      "CI_COMMIT_BEFORE_SHA"
      "CI_COMMIT_DESCRIPTION"
+     "CI_CONCURRENT_ID"
+     "CI_CONCURRENT_PROJECT_ID"
      "CI_COMMIT_MESSAGE"
      "CI_COMMIT_REF_NAME"
      "CI_COMMIT_REF_SLUG"
