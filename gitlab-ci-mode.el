@@ -80,6 +80,7 @@ set in a ‘variables’ block and act more like keywords.")
      "local"
      "max"
      "name"
+     "needs"
      "on_stop"
      "only"
      "pages"
