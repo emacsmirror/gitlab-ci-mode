@@ -1,10 +1,10 @@
-;;; gitlab-ci-mode.el --- mode for editing GitLab CI files  -*- lexical-binding: t; -*-
+;;; gitlab-ci-mode.el --- Mode for editing GitLab CI files  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright 2018 Joe Wreschnig
 ;;
 ;; Author: Joe Wreschnig
 ;; Keywords: tools, vc
-;; Package-Requires: ((emacs "25") (yaml-mode "0.0.12"))
+;; Package-Requires: ((emacs "25.1") (yaml-mode "0.0.12"))
 ;; Package-Version: 20191022.12.4
 ;; URL: https://gitlab.com/joewreschnig/gitlab-ci-mode/
 ;;
@@ -365,8 +365,7 @@ In particular, it does not expect to encounter tags."
       (1 'gitlab-ci-custom-variable))
      (,(format "[-:].+\\<\\(%s\\)\\>"
                (regexp-opt gitlab-ci-special-values))
-      (1 'gitlab-ci-special-value))
-     ))
+      (1 'gitlab-ci-special-value))))
 
   (setq-local completion-at-point-functions
               '(gitlab-ci-complete-at-point)))
