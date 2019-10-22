@@ -5,7 +5,7 @@
 ;; Author: Joe Wreschnig
 ;; Keywords: tools, vc
 ;; Package-Requires: ((emacs "25") (yaml-mode "0.0.12"))
-;; Package-Version: 20190824.12.2
+;; Package-Version: 20191022.12.4
 ;; URL: https://gitlab.com/joewreschnig/gitlab-ci-mode/
 ;;
 ;; This program is free software; you can redistribute it and/or modify
@@ -72,11 +72,14 @@ set in a ‘variables’ block and act more like keywords.")
      "dependencies"
      "environment"
      "except"
+     "exists"
      "expire_in"
      "extends"
      "file"
+     "if"
      "image"
      "include"
+     "interruptible"
      "key"
      "kubernetes"
      "local"
@@ -95,6 +98,7 @@ set in a ‘variables’ block and act more like keywords.")
      "remote"
      "reports"
      "retry"
+     "rules"
      "script"
      "services"
      "stage"
@@ -102,6 +106,7 @@ set in a ‘variables’ block and act more like keywords.")
      "start_in"
      "tags"
      "template"
+     "timeout"
      "trigger"
      "untracked"
      "url"
@@ -111,7 +116,9 @@ set in a ‘variables’ block and act more like keywords.")
   "YAML keys with special meaning used in GitLab CI files.")
 
 (defconst gitlab-ci-special-values
-  '("always"
+  '(".post"
+    ".pre"
+    "always"
     "api"
     "api_failure"
     "branches"
